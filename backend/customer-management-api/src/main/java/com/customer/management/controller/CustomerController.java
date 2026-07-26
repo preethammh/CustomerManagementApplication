@@ -1,5 +1,7 @@
 package com.customer.management.controller;
 
+import com.customer.management.model.CustomerPaginatedResponse;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.customer.management.model.CustomerInputRequest;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/customer-management")
+@Log4j2
 public class CustomerController {
 
   private final CustomerService customerService;
@@ -39,6 +42,7 @@ public class CustomerController {
   @ApiResponse(responseCode = "400", description = "Invalid customer data provided")
   @ApiResponse(responseCode = "500", description = "Internal server error")
   public ResponseEntity<CustomerResponse> createCustomer(@RequestBody @Valid CustomerInputRequest customerInfo) {
+      log.debug("Received request to create a new customer profile in the system");
       CustomerResponse response = customerService.createCustomer(customerInfo);
       return new ResponseEntity<>(response, HttpStatus.CREATED);
   }
@@ -50,9 +54,10 @@ public class CustomerController {
     )
   @ApiResponse(responseCode = "200", description = "Successfully retrieved the list of customers")
   @ApiResponse(responseCode = "500", description = "Internal server error")
-  public ResponseEntity<List<CustomerResponse>> getAllCustomers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@RequestParam(defaultValue = "firstName") String sortBy) {
+  public ResponseEntity<CustomerPaginatedResponse> getAllCustomers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@RequestParam(defaultValue = "firstName") String sortBy) {
       // Implementation for retrieving all customers
-      List<CustomerResponse> customers = customerService.getAllCustomers(page, size, sortBy);
+      log.debug("Received request to get all customer profiles from the system");
+      CustomerPaginatedResponse customers = customerService.getAllCustomers(page, size, sortBy);
       return ResponseEntity.ok(customers);
   }
   
