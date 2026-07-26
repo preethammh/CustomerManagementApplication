@@ -21,7 +21,7 @@ public class ApiMetricAspect {
     }
 
     // Intercepts any execution containing the @TrackCount annotation
-    @Before("@annotation(com.customer.management.config.TrackCount)")
+    @Before("@annotation(com.customer.management.prometheus.TrackCount)")
     public void incrementApiCounter(JoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
