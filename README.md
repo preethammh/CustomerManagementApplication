@@ -34,52 +34,58 @@ CustomerManagementApplication/
 ### Frontend
   - React 19
   - TypeScript
-  - Axios
-  - Modern CSS
+  - tailwind CSS
 
 ## Getting Started
 
 ### Prerequisites
 Install the following before running the application:
 
-  - Java 21+
-  - Node.js 20+
-  - npm
-  - Git
+- Java 21+
+- Node.js 20+
+- npm
+- Git
 
 ### Running the Backend
 
-```
-cd backend
+From the repository root:
+
+```bash
+cd backend/customer-management-api
 ./mvnw spring-boot:run
 ```
 
-### The backend will start on:
+The backend will start on:
 
-http://localhost:8080
-
-H2 Console (if enabled):
-
-http://localhost:8080/h2-console
+- http://localhost:8080
+- Swagger UI: http://localhost:8080/swagger-ui/index.html
 
 ### Running the Frontend
-```
-cd frontend
+
+From the repository root:
+
+```bash
+cd frontend/customer-management-ui
 npm install
 npm run dev
 ```
 
 The frontend will be available at:
 
-http://localhost:5173
+- http://localhost:3000
 
 ## API Endpoints
+
 ### Create Customer
+
+```http
+POST /api/v1/customer-management/customer
+Content-Type: application/json
 ```
-POST /api/customers
-```
-Request Body
-```
+
+Request body:
+
+```json
 {
   "firstName": "John",
   "lastName": "Doe",
@@ -88,17 +94,14 @@ Request Body
 ```
 
 ### Get Customers
+
+```http
+GET /api/v1/customer-management/customers?page=0&size=10&sortBy=firstName
 ```
-GET /api/customers
-```
-Returns all stored customer records.
-```
-[
-  {
-    "id":"1234",
-    "firstName": "John",
-    "lastName": "Doe",
-    "dateOfBirth": "1995-04-20"
-  }
-]
-```
+
+Returns a paginated list of customer records.
+
+## Documentation
+
+- Backend README: [backend/customer-management-api/README.md](backend/customer-management-api/README.md)
+- Frontend README: [frontend/customer-management-ui/README.md](frontend/customer-management-ui/README.md)
