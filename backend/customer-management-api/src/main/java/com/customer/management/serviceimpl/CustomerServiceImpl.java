@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.List;
 
+import com.customer.management.prometheus.TrackCount;
 import com.customer.management.exception.CustomerManagementException;
 import com.customer.management.model.CustomerPaginatedResponse;
 import com.customer.management.model.Metadata;
@@ -33,6 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @TrackCount("create_customer")
     public CustomerResponse createCustomer(CustomerInputRequest customerInfo) {
         log.debug("Creating customer with first name: {} and last name: {}", customerInfo.getFirstName(), customerInfo.getLastName());
         // Implementation for creating a customer
@@ -57,6 +59,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @TrackCount("get_all_customers")
     public CustomerPaginatedResponse getAllCustomers(int page, int size, String sortBy) {
         log.debug("Getting all customers with page {} and size {}", page, size);
 
